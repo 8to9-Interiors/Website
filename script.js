@@ -1,81 +1,375 @@
 /**
- * MOBILE NAVIGATION TOGGLE
- *
- * How it works:
- * 1. We select the hamburger button and the nav menu list.
- * 2. Clicking the button toggles the CSS class "is-open" on both elements.
- * 3. CSS handles the visual change (menu slides in, bars become an X).
- * 4. aria-expanded keeps the button accessible for screen readers.
+ * 8 to 9 Interiors — main site script
+ * Handles intro animation, navigation, testimonials, map, contact form,
+ * and interactive 3D room previews (Three.js).
  */
 
-const navToggle = document.querySelector(".nav-toggle");
-const navMenu = document.querySelector(".nav-menu");
-const navLinks = document.querySelectorAll(".nav-link");
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-/**
- * Opens or closes the mobile menu.
- * Toggles "is-open" on the button and menu so CSS can show/hide them.
- */
-function toggleMobileMenu() {
-  const isOpen = navMenu.classList.toggle("is-open");
-  navToggle.classList.toggle("is-open", isOpen);
-  navToggle.setAttribute("aria-expanded", String(isOpen));
-  navToggle.setAttribute(
-    "aria-label",
-    isOpen ? "Close navigation menu" : "Open navigation menu"
-  );
+/* ============================================================
+   INTRO DOOR ANIMATION
+   Sequence: doors open → brand text shows → overlay fades out
+   ============================================================ */
+function runIntroAnimation() {
+  const intro = document.getElementById("intro");
+  const body = document.body;
+
+  if (!intro) {
+    body.classList.remove("is-loading");
+    return;
+  }
+
+  setTimeout(function () {
+    intro.classList.add("doors-open");
+  }, 400);
+
+  setTimeout(function () {
+    intro.classList.add("show-brand");
+  }, 1600);
+
+  setTimeout(function () {
+    intro.classList.add("is-done");
+    body.classList.remove("is-loading");
+  }, 4200);
+
+  setTimeout(function () {
+    intro.remove();
+  }, 5200);
 }
 
-navToggle.addEventListener("click", toggleMobileMenu);
+/* ============================================================
+   MOBILE NAV TOGGLE
+   Adds/removes .is-open on button + menu; CSS handles the rest
+   ============================================================ */
+function initNavigation() {
+  const navToggle = document.querySelector(".nav-toggle");
+  const navMenu = document.querySelector(".nav-menu");
+  const navLinks = document.querySelectorAll(".nav-link");
 
-/**
- * Close the menu when a nav link is clicked (better mobile UX).
- * Also enables smooth in-page scrolling without leaving menu open.
- */
-navLinks.forEach(function (link) {
-  link.addEventListener("click", function () {
-    if (navMenu.classList.contains("is-open")) {
-      navMenu.classList.remove("is-open");
-      navToggle.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.setAttribute("aria-label", "Open navigation menu");
-    }
-  });
-});
+  if (!navToggle || !navMenu) return;
 
-/**
- * Close menu if user resizes window to desktop width.
- * Prevents the mobile panel from staying open on larger screens.
- */
-window.addEventListener("resize", function () {
-  if (window.innerWidth > 768 && navMenu.classList.contains("is-open")) {
+  function closeMenu() {
     navMenu.classList.remove("is-open");
     navToggle.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");
     navToggle.setAttribute("aria-label", "Open navigation menu");
   }
-});
 
-/**
- * CONTACT FORM — client-side validation demo
- *
- * Prevents default submit (no backend yet) and shows a simple alert.
- * Replace this with a real form handler (e.g. Formspree, Netlify Forms) later.
- */
-const contactForm = document.querySelector(".contact-form");
+  navToggle.addEventListener("click", function () {
+    const isOpen = navMenu.classList.toggle("is-open");
+    navToggle.classList.toggle("is-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation menu" : "Open navigation menu"
+    );
+  });
 
-contactForm.addEventListener("submit", function (event) {
-  event.preventDefault();
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", closeMenu);
+  });
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 768) closeMenu();
+  });
+}
 
-  if (!name || !email || !message) {
-    alert("Please fill in all fields before submitting.");
-    return;
+/* ============================================================
+   TESTIMONIAL SLIDER
+   Cycles through blockquotes; dots are generated in JS
+   ============================================================ */
+function initTestimonials() {
+  const slides = document.querySelectorAll(".testimonial-slide");
+  const dotsContainer = document.querySelector(".testimonial-dots");
+  if (!slides.length || !dotsContainer) return;
+
+  let current = 0;
+  let timer;
+
+  slides.forEach(function (_, index) {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "testimonial-dot" + (index === 0 ? " is-active" : "");
+    dot.setAttribute("aria-label", "Show testimonial " + (index + 1));
+    dot.addEventListener("click", function () {
+      goTo(index);
+      restartTimer();
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll(".testimonial-dot");
+
+  function goTo(index) {
+    slides[current].classList.remove("is-active");
+    dots[current].classList.remove("is-active");
+    current = index;
+    slides[current].classList.add("is-active");
+    dots[current].classList.add("is-active");
   }
 
-  alert("Thank you, " + name + "! Your message has been received. We will contact you soon.");
-  contactForm.reset();
-});
+  function next() {
+    goTo((current + 1) % slides.length);
+  }
+
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 6000);
+  }
+
+  restartTimer();
+}
+
+/* ============================================================
+   CONTACT FORM (demo validation — no backend yet)
+   ============================================================ */
+function initContactForm() {
+  const form = document.querySelector(".contact-form");
+  if (!form) return;
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+      alert("Please fill in the required fields.");
+      return;
+    }
+
+    alert("Thank you, " + name + "! Your enquiry has been received.");
+    form.reset();
+  });
+}
+
+/* ============================================================
+   LEAFLET MAP — studio location pin
+   ============================================================ */
+function initMap() {
+  const mapEl = document.getElementById("map");
+  if (!mapEl || typeof L === "undefined") return;
+
+  const map = L.map("map", { scrollWheelZoom: false }).setView([19.0596, 72.8295], 15);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  L.marker([19.0596, 72.8295]).addTo(map)
+    .bindPopup("8 to 9 Interiors Atelier");
+}
+
+/* ============================================================
+   THREE.JS 3D ROOM VIEWER
+   Builds interactive interior scenes with geometry + lighting.
+   Each room type assembles walls, furniture, and accents.
+   ============================================================ */
+const GOLD = 0xc5a059;
+const DARK = 0x121212;
+const WALL = 0x1b1b1b;
+const FLOOR = 0x2a2318;
+
+let viewerRenderer;
+let viewerScene;
+let viewerCamera;
+let viewerControls;
+let viewerFrameId;
+
+function makeMaterial(color, opts) {
+  return new THREE.MeshStandardMaterial(Object.assign({
+    color: color,
+    roughness: 0.65,
+    metalness: 0.08
+  }, opts || {}));
+}
+
+function addMesh(group, geometry, material, x, y, z, rx, ry, rz) {
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(x, y, z);
+  if (rx) mesh.rotation.x = rx;
+  if (ry) mesh.rotation.y = ry;
+  if (rz) mesh.rotation.z = rz;
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  group.add(mesh);
+  return mesh;
+}
+
+function buildRoomShell(group) {
+  const floorGeo = new THREE.PlaneGeometry(8, 8);
+  addMesh(group, floorGeo, makeMaterial(FLOOR), 0, 0, 0, -Math.PI / 2);
+
+  const wallMat = makeMaterial(WALL);
+  addMesh(group, new THREE.PlaneGeometry(8, 4), wallMat, 0, 2, -4);
+  addMesh(group, new THREE.PlaneGeometry(8, 4), wallMat, -4, 2, 0, 0, Math.PI / 2);
+  addMesh(group, new THREE.PlaneGeometry(8, 4), wallMat, 4, 2, 0, 0, -Math.PI / 2);
+}
+
+function buildLivingRoom(group) {
+  buildRoomShell(group);
+  const sofaMat = makeMaterial(0x3a2f28);
+  addMesh(group, new THREE.BoxGeometry(3.2, 0.7, 1.2), sofaMat, 0, 0.35, -2.4);
+  addMesh(group, new THREE.BoxGeometry(3.2, 0.9, 0.25), sofaMat, 0, 0.75, -3.05);
+  addMesh(group, new THREE.BoxGeometry(1.6, 0.45, 0.9), makeMaterial(GOLD, { metalness: 0.4 }), 0, 0.25, -0.8);
+  addMesh(group, new THREE.BoxGeometry(2.4, 1.2, 0.12), makeMaterial(0x0a0a0a), 0, 1.4, -3.92);
+  addMesh(group, new THREE.BoxGeometry(0.15, 2.2, 0.15), makeMaterial(GOLD, { metalness: 0.6 }), -1.2, 1.1, -1.5);
+}
+
+function buildBedroom(group) {
+  buildRoomShell(group);
+  addMesh(group, new THREE.BoxGeometry(2.4, 0.5, 2), makeMaterial(0x2d2620), 0, 0.25, -2);
+  addMesh(group, new THREE.BoxGeometry(2.4, 0.25, 2), makeMaterial(0xf0ece4), 0, 0.62, -2);
+  addMesh(group, new THREE.BoxGeometry(2.6, 1.1, 0.15), makeMaterial(0x222222), 0, 0.85, -3.05);
+  addMesh(group, new THREE.BoxGeometry(0.5, 0.5, 0.5), makeMaterial(GOLD, { metalness: 0.5 }), 1.4, 0.25, -0.8);
+  addMesh(group, new THREE.CylinderGeometry(0.02, 0.02, 1.2, 8), makeMaterial(GOLD, { metalness: 0.7 }), 1.4, 0.85, -0.8);
+}
+
+function buildKitchen(group) {
+  buildRoomShell(group);
+  addMesh(group, new THREE.BoxGeometry(6, 0.9, 0.6), makeMaterial(0x1f1f1f), 0, 0.45, -3.65);
+  addMesh(group, new THREE.BoxGeometry(6, 0.05, 0.65), makeMaterial(0x3a3530), 0, 0.92, -3.65);
+  addMesh(group, new THREE.BoxGeometry(1.2, 0.9, 0.6), makeMaterial(GOLD, { metalness: 0.35 }), -2.2, 0.45, -3.65);
+  addMesh(group, new THREE.BoxGeometry(1.4, 0.15, 0.8), makeMaterial(0x444444), 0, 0.55, -1.2);
+  addMesh(group, new THREE.BoxGeometry(0.5, 1.6, 0.5), makeMaterial(0x2a2a2a), 2.5, 0.8, -3.2);
+}
+
+function buildBathroom(group) {
+  buildRoomShell(group);
+  addMesh(group, new THREE.BoxGeometry(1.6, 0.5, 0.7), makeMaterial(0xeeeeee), -1.5, 0.25, -2.5);
+  addMesh(group, new THREE.BoxGeometry(2.2, 0.08, 1.2), makeMaterial(0x555555), 0.5, 0.45, -1.2);
+  addMesh(group, new THREE.BoxGeometry(0.8, 1.6, 0.08), makeMaterial(0x999999), 3.85, 1.2, -1.5);
+  addMesh(group, new THREE.BoxGeometry(0.6, 0.9, 0.6), makeMaterial(0x333333), 2.8, 0.45, -2.8);
+  addMesh(group, new THREE.BoxGeometry(6, 0.04, 0.15), makeMaterial(GOLD, { emissive: GOLD, emissiveIntensity: 0.35 }), 0, 3.2, -3.95);
+}
+
+const roomBuilders = {
+  living: buildLivingRoom,
+  bedroom: buildBedroom,
+  kitchen: buildKitchen,
+  bathroom: buildBathroom
+};
+
+const roomTitles = {
+  living: "Living Hall — 3D Preview",
+  bedroom: "Bedroom — 3D Preview",
+  kitchen: "Kitchen — 3D Preview",
+  bathroom: "Bathroom — 3D Preview"
+};
+
+function disposeViewer() {
+  if (viewerFrameId) cancelAnimationFrame(viewerFrameId);
+  if (viewerRenderer) {
+    viewerRenderer.dispose();
+    viewerRenderer = null;
+  }
+  viewerScene = null;
+  viewerCamera = null;
+  viewerControls = null;
+}
+
+function openRoomViewer(roomKey) {
+  const modal = document.getElementById("viewer-modal");
+  const canvas = document.getElementById("viewer-canvas");
+  const title = document.getElementById("viewer-title");
+  const builder = roomBuilders[roomKey];
+
+  if (!modal || !canvas || !builder) return;
+
+  disposeViewer();
+
+  title.textContent = roomTitles[roomKey] || "3D Room Preview";
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+
+  viewerScene = new THREE.Scene();
+  viewerScene.background = new THREE.Color(DARK);
+  viewerScene.fog = new THREE.Fog(DARK, 6, 14);
+
+  viewerCamera = new THREE.PerspectiveCamera(
+    50,
+    canvas.clientWidth / canvas.clientHeight,
+    0.1,
+    100
+  );
+  viewerCamera.position.set(4.5, 3.2, 5.5);
+
+  viewerRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  viewerRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  viewerRenderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+  viewerRenderer.shadowMap.enabled = true;
+
+  viewerControls = new OrbitControls(viewerCamera, canvas);
+  viewerControls.enableDamping = true;
+  viewerControls.target.set(0, 1, -1.5);
+  viewerControls.maxPolarAngle = Math.PI * 0.49;
+  viewerControls.minDistance = 3;
+  viewerControls.maxDistance = 10;
+
+  const roomGroup = new THREE.Group();
+  builder(roomGroup);
+  viewerScene.add(roomGroup);
+
+  const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+  viewerScene.add(ambient);
+
+  const keyLight = new THREE.DirectionalLight(0xffe8c8, 1.1);
+  keyLight.position.set(4, 6, 3);
+  keyLight.castShadow = true;
+  viewerScene.add(keyLight);
+
+  const goldLight = new THREE.PointLight(GOLD, 0.8, 12);
+  goldLight.position.set(-2, 3, 0);
+  viewerScene.add(goldLight);
+
+  function animate() {
+    viewerFrameId = requestAnimationFrame(animate);
+    viewerControls.update();
+    viewerRenderer.render(viewerScene, viewerCamera);
+  }
+
+  animate();
+}
+
+function closeRoomViewer() {
+  const modal = document.getElementById("viewer-modal");
+  if (!modal) return;
+  modal.hidden = true;
+  modal.setAttribute("aria-hidden", "true");
+  disposeViewer();
+}
+
+function initCatalogueViewer() {
+  document.querySelectorAll(".catalogue-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      openRoomViewer(btn.dataset.room);
+    });
+  });
+
+  document.querySelectorAll("[data-close-viewer]").forEach(function (el) {
+    el.addEventListener("click", closeRoomViewer);
+  });
+
+  window.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeRoomViewer();
+  });
+
+  window.addEventListener("resize", function () {
+    const canvas = document.getElementById("viewer-canvas");
+    if (!viewerRenderer || !viewerCamera || !canvas || document.getElementById("viewer-modal").hidden) return;
+    viewerCamera.aspect = canvas.clientWidth / canvas.clientHeight;
+    viewerCamera.updateProjectionMatrix();
+    viewerRenderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+  });
+}
+
+/* ============================================================
+   BOOT — run everything when DOM is ready
+   ============================================================ */
+runIntroAnimation();
+initNavigation();
+initTestimonials();
+initContactForm();
+initMap();
+initCatalogueViewer();
