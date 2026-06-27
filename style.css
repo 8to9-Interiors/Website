@@ -1,0 +1,636 @@
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   Central place to tweak colors, spacing, and fonts globally
+   ============================================================ */
+:root {
+  --color-black: #0a0a0a;
+  --color-black-soft: #141414;
+  --color-black-muted: #1e1e1e;
+  --color-gold: #c9a227;
+  --color-gold-light: #e8c547;
+  --color-gold-dark: #9a7b1a;
+  --color-white: #f5f5f5;
+  --color-gray: #a0a0a0;
+  --color-gray-dark: #6b6b6b;
+
+  --font-heading: "Georgia", "Times New Roman", serif;
+  --font-body: "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  --header-height: 4.5rem;
+  --max-width: 72rem;
+  --radius: 0.25rem;
+  --transition: 0.3s ease;
+}
+
+/* ============================================================
+   RESET & BASE STYLES
+   Removes default browser spacing for consistent layout control
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-white);
+  background-color: var(--color-black);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Reusable centered content wrapper */
+.container {
+  width: min(100% - 2rem, var(--max-width));
+  margin-inline: auto;
+}
+
+/* Shared vertical spacing for major sections */
+.section {
+  padding-block: var(--space-2xl);
+}
+
+/* ============================================================
+   TYPOGRAPHY HELPERS
+   ============================================================ */
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-xs);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+}
+
+.section-desc {
+  color: var(--color-gray);
+  max-width: 36rem;
+}
+
+.section-header {
+  margin-bottom: var(--space-xl);
+}
+
+.section-header--center {
+  text-align: center;
+}
+
+.section-header--center .section-desc {
+  margin-inline: auto;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+  border-color: var(--color-gold);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ============================================================
+   NAVIGATION BAR
+   Uses Flexbox to align logo, menu, and hamburger toggle
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: min(100% - 2rem, var(--max-width));
+  margin-inline: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.logo-mark {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gold);
+}
+
+.logo-text {
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+/* Desktop navigation links in a horizontal row */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav-link {
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  transition: color var(--transition);
+  padding: var(--space-xs) 0;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-gold);
+}
+
+.nav-link--cta {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  border-radius: var(--radius);
+}
+
+.nav-link--cta:hover,
+.nav-link--cta:focus-visible {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+}
+
+/* Hamburger button — hidden on desktop, shown on mobile via media query */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: transparent;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-gold);
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Animated X when menu is open (toggled by JS adding .is-open) */
+.nav-toggle.is-open .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-open .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.is-open .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
+   HERO SECTION
+   Full viewport height with centered content via Flexbox
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--header-height);
+  background:
+    linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(20, 20, 20, 0.7) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23c9a227' fill-opacity='0.04'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40z'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: var(--color-black);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(201, 162, 39, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  max-width: 42rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-md);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+}
+
+.hero-title span {
+  color: var(--color-gold);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  color: var(--color-gray);
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   SERVICES SECTION
+   CSS Grid: 3 equal columns on desktop, 1 column on mobile
+   ============================================================ */
+.services {
+  background-color: var(--color-black-soft);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.service-card {
+  background-color: var(--color-black-muted);
+  border: 1px solid rgba(201, 162, 39, 0.12);
+  padding: var(--space-lg);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.service-card:hover {
+  border-color: rgba(201, 162, 39, 0.4);
+  transform: translateY(-4px);
+}
+
+.service-icon {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-gold);
+  opacity: 0.6;
+  margin-bottom: var(--space-sm);
+}
+
+.service-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  margin-bottom: var(--space-sm);
+  color: var(--color-white);
+}
+
+.service-text {
+  font-size: 0.9375rem;
+  color: var(--color-gray);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   ABOUT SECTION
+   CSS Grid split: text column + image column side by side
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.about-text {
+  color: var(--color-gray);
+  margin-bottom: var(--space-sm);
+}
+
+.about-text strong {
+  color: var(--color-gold);
+}
+
+.about-list {
+  margin-top: var(--space-md);
+}
+
+.about-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: var(--space-xs);
+  color: var(--color-gray);
+  font-size: 0.9375rem;
+}
+
+.about-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-gold);
+  border-radius: 50%;
+}
+
+.about-image-inner {
+  aspect-ratio: 4 / 5;
+  background:
+    linear-gradient(160deg, var(--color-black-muted) 0%, var(--color-black-soft) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-image-inner::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.about-image-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gray-dark);
+}
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+.contact {
+  background-color: var(--color-black-soft);
+}
+
+.contact-wrapper {
+  max-width: 36rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-group label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.form-group input,
+.form-group textarea {
+  background-color: var(--color-black-muted);
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+  color: var(--color-white);
+  transition: border-color var(--transition);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--color-gray-dark);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+/* ============================================================
+   FOOTER
+   Flexbox row: copyright left, social links right
+   ============================================================ */
+.site-footer {
+  background-color: var(--color-black);
+  border-top: 1px solid rgba(201, 162, 39, 0.12);
+  padding-block: var(--space-lg);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.footer-copy {
+  font-size: 0.8125rem;
+  color: var(--color-gray-dark);
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer-social a {
+  font-size: 0.8125rem;
+  color: var(--color-gray);
+  transition: color var(--transition);
+}
+
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES
+   Breakpoints adjust layout for tablet and mobile screens
+   ============================================================ */
+
+/* Tablet: 2-column services, stacked about */
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .about-image {
+    order: -1;
+  }
+
+  .about-image-inner {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Mobile: hamburger menu, single-column everything */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  /*
+    Mobile menu: hidden off-screen by default.
+    When JS adds .is-open, it slides down as a full-width panel.
+  */
+  .nav-menu {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background-color: var(--color-black-soft);
+    border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+    padding: var(--space-sm) 0;
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform var(--transition), opacity var(--transition), visibility var(--transition);
+  }
+
+  .nav-menu.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-menu li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    text-align: center;
+  }
+
+  .nav-link--cta {
+    margin: var(--space-sm) var(--space-md);
+    text-align: center;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding-block: var(--space-xl);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-social {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

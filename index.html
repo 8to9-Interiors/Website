@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="8 to 9 Interiors — Premium interior design services for modern living spaces.">
+  <title>8 to 9 Interiors | Interior Design Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================
+       NAVIGATION BAR
+       Fixed at top; links scroll to page sections
+       ========================= -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="#home" class="logo" aria-label="8 to 9 Interiors home">
+        <span class="logo-mark">8:9</span>
+        <span class="logo-text">Interiors</span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="primary-menu"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <ul class="nav-menu" id="primary-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link nav-link--cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =========================
+         HERO SECTION
+         Full-viewport intro with headline + CTA
+         ========================= -->
+    <section id="home" class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content container">
+        <p class="hero-eyebrow">Interior Design Studio</p>
+        <h1 class="hero-title">Transform Your Space<br><span>From 8 to 9</span></h1>
+        <p class="hero-subtitle">
+          We craft elegant, functional interiors that reflect your lifestyle —
+          from concept to completion, every detail is designed with purpose.
+        </p>
+        <a href="#contact" class="btn btn-primary">Book a Free Consultation</a>
+      </div>
+    </section>
+
+    <!-- =========================
+         SERVICES / FEATURES
+         3-column grid on desktop, stacks on mobile
+         ========================= -->
+    <section id="services" class="services section">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-eyebrow">What We Offer</p>
+          <h2 class="section-title">Design Services</h2>
+          <p class="section-desc">
+            Tailored solutions for residential spaces — blending aesthetics,
+            comfort, and timeless craftsmanship.
+          </p>
+        </header>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">01</div>
+            <h3 class="service-title">Space Planning</h3>
+            <p class="service-text">
+              Optimize layout, flow, and functionality so every square foot
+              works beautifully for how you live.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">02</div>
+            <h3 class="service-title">Interior Styling</h3>
+            <p class="service-text">
+              Curated furniture, textures, and color palettes that create
+              cohesive, magazine-worthy rooms.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">03</div>
+            <h3 class="service-title">Renovation Design</h3>
+            <p class="service-text">
+              End-to-end guidance for remodels — from mood boards to material
+              selection and final installation.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         ABOUT SECTION
+         Split layout: text + image placeholder
+         ========================= -->
+    <section id="about" class="about section">
+      <div class="container about-grid">
+        <div class="about-content">
+          <p class="section-eyebrow">About Us</p>
+          <h2 class="section-title">Designing Spaces That Feel Like Home</h2>
+          <p class="about-text">
+            At <strong>8 to 9 Interiors</strong>, we believe great design is more
+            than decoration — it's an experience. Our team partners with homeowners
+            to elevate everyday spaces into refined, personal sanctuaries.
+          </p>
+          <p class="about-text">
+            With a focus on black-and-gold elegance, natural materials, and
+            thoughtful lighting, we deliver interiors that are both luxurious
+            and livable.
+          </p>
+          <ul class="about-list">
+            <li>10+ years of residential design experience</li>
+            <li>Personalized concepts for every budget</li>
+            <li>Trusted vendor and contractor network</li>
+          </ul>
+        </div>
+
+        <div class="about-image" role="img" aria-label="Interior design showcase placeholder">
+          <div class="about-image-inner">
+            <span class="about-image-label">Your Project Here</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         CONTACT FORM
+         Name, Email, Message + submit
+         ========================= -->
+    <section id="contact" class="contact section">
+      <div class="container contact-wrapper">
+        <header class="section-header section-header--center">
+          <p class="section-eyebrow">Get In Touch</p>
+          <h2 class="section-title">Start Your Project</h2>
+          <p class="section-desc">
+            Tell us about your space and we'll reach out within 24 hours.
+          </p>
+        </header>
+
+        <form class="contact-form" action="#" method="post" novalidate>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Describe your project, room size, and timeline..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================
+       FOOTER
+       Copyright + social link placeholders
+       ========================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2026 8 to 9 Interiors. All rights reserved.</p>
+
+      <ul class="footer-social" aria-label="Social media links">
+        <li><a href="#" aria-label="Instagram">Instagram</a></li>
+        <li><a href="#" aria-label="Pinterest">Pinterest</a></li>
+        <li><a href="#" aria-label="Facebook">Facebook</a></li>
+        <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
