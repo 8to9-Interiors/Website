@@ -6,7 +6,7 @@
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 /* ============================================================
    INTRO DOOR ANIMATION
    Sequence: doors open → brand text shows → overlay fades out
@@ -22,7 +22,7 @@ function runIntroAnimation() {
 
   setTimeout(function () {
     intro.classList.add("doors-open");
-  }, 400);
+  }, 900);
 
   setTimeout(function () {
     intro.classList.add("show-brand");
@@ -31,11 +31,11 @@ function runIntroAnimation() {
   setTimeout(function () {
     intro.classList.add("is-done");
     body.classList.remove("is-loading");
-  }, 4200);
+  }, 8500);
 
   setTimeout(function () {
     intro.remove();
-  }, 5200);
+  }, 9500);
 }
 
 /* ============================================================
@@ -273,9 +273,8 @@ function openRoomViewer(roomKey) {
   const modal = document.getElementById("viewer-modal");
   const canvas = document.getElementById("viewer-canvas");
   const title = document.getElementById("viewer-title");
-  const builder = roomBuilders[roomKey];
 
-  if (!modal || !canvas || !builder) return;
+  if (!modal || !canvas) return;
 
   disposeViewer();
 
@@ -284,51 +283,95 @@ function openRoomViewer(roomKey) {
   modal.setAttribute("aria-hidden", "false");
 
   viewerScene = new THREE.Scene();
-  viewerScene.background = new THREE.Color(DARK);
-  viewerScene.fog = new THREE.Fog(DARK, 6, 14);
+  viewerScene.background = new THREE.Color(0x111111);
 
-  viewerCamera = new THREE.PerspectiveCamera(
-    50,
-    canvas.clientWidth / canvas.clientHeight,
-    0.1,
-    100
-  );
+  viewerCamera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
   viewerCamera.position.set(4.5, 3.2, 5.5);
 
   viewerRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
   viewerRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   viewerRenderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
   viewerRenderer.shadowMap.enabled = true;
+  viewerRenderer.outputColorSpace = THREE.SRGBColorSpace;
+  viewerRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+  viewerRenderer.toneMappingExposure = 1.2;
 
   viewerControls = new OrbitControls(viewerCamera, canvas);
   viewerControls.enableDamping = true;
   viewerControls.target.set(0, 1, -1.5);
   viewerControls.maxPolarAngle = Math.PI * 0.49;
-  viewerControls.minDistance = 3;
-  viewerControls.maxDistance = 10;
+  viewerControls.minDistance = 2;
+  viewerControls.maxDistance = 15;
 
-  const roomGroup = new THREE.Group();
-  builder(roomGroup);
-  viewerScene.add(roomGroup);
-
-  const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+  const ambient = new THREE.AmbientLight(0xffffff, 1.5);
   viewerScene.add(ambient);
-
-  const keyLight = new THREE.DirectionalLight(0xffe8c8, 1.1);
-  keyLight.position.set(4, 6, 3);
+  const keyLight = new THREE.DirectionalLight(0xffe8c8, 2);
+  keyLight.position.set(5, 8, 5);
   keyLight.castShadow = true;
   viewerScene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  fillLight.position.set(-5, 3, -5);
+  viewerScene.add(fillLight);
 
-  const goldLight = new THREE.PointLight(GOLD, 0.8, 12);
-  goldLight.position.set(-2, 3, 0);
-  viewerScene.add(goldLight);
+  const glbModels = {
+    living:  'modern_apartment_interior.glb',
+    bedroom: 'bedroom_interior.glb',
+    bathroom: 'bathroom_interior.glb',
+    kitchen: null
+  };
+
+  const modelFile = glbModels[roomKey];
+
+  if (modelFile) {
+    const loader = new GLTFLoader();
+    title.textContent = "Loading...";
+    loader.load(
+      modelFile,
+      function (gltf) {
+        const model = gltf.scene;
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        // Don't scale — use model as is
+model.position.sub(center);
+viewerScene.add(model);
+title.textContent = roomTitles[roomKey];
+
+// Move camera inside the model
+const box2 = new THREE.Box3().setFromObject(model);
+const center2 = box2.getCenter(new THREE.Vector3());
+const size2 = box2.getSize(new THREE.Vector3());
+
+viewerCamera.position.set(
+  center2.x,
+  center2.y + size2.y * 0.1,
+  center2.z + size2.z * 0.1
+);
+viewerControls.target.set(center2.x, center2.y, center2.z - size2.z * 0.3);
+viewerControls.minDistance = 0.1;
+viewerControls.maxDistance = size2.z * 2;
+viewerControls.update();
+      },
+      function (xhr) {
+        title.textContent = "Loading... " + Math.round((xhr.loaded / xhr.total) * 100) + "%";
+      },
+      function (error) {
+        console.error("GLB load error:", error);
+        title.textContent = "Failed to load model";
+      }
+    );
+  } else {
+    const roomGroup = new THREE.Group();
+    buildKitchen(roomGroup);
+    viewerScene.add(roomGroup);
+    title.textContent = roomTitles[roomKey];
+  }
 
   function animate() {
     viewerFrameId = requestAnimationFrame(animate);
     viewerControls.update();
     viewerRenderer.render(viewerScene, viewerCamera);
   }
-
   animate();
 }
 
@@ -363,7 +406,37 @@ function initCatalogueViewer() {
     viewerRenderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
   });
 }
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
 
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdwaHhIxn0sMuZKqZ3cZ8a9YqixSakSP3GZq_rJreT8h5xFaQ/formResponse';
+
+// 👇 Replace these with actual enty IDs from Inspect
+const ENTRY_NAME    = 'entry.584877107';
+const ENTRY_EMAIL   = 'entry.653930433';
+const ENTRY_PHONE   = 'entry.1659474746';
+const ENTRY_MESSAGE = 'entry.1795675503X';
+
+contactForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append(ENTRY_NAME,    document.getElementById('name').value);
+  formData.append(ENTRY_EMAIL,   document.getElementById('email').value);
+  formData.append(ENTRY_PHONE,   document.getElementById('phone').value);
+  formData.append(ENTRY_MESSAGE, document.getElementById('message').value);
+
+  fetch(GOOGLE_FORM_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: formData
+  }).then(() => {
+    formStatus.textContent = '✓ Message sent successfully!';
+    contactForm.reset();
+  }).catch(() => {
+    formStatus.textContent = '✗ Something went wrong. Please try again.';
+  });
+});
 /* ============================================================
    BOOT — run everything when DOM is ready
    ============================================================ */
