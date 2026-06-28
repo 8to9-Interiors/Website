@@ -14,18 +14,30 @@
 <body class="is-loading">
 
   <!-- INTRO: wooden door opens, brand appears, then site reveals -->
-  <div id="intro" class="intro" aria-hidden="false">
-    <div class="intro-doors">
-      <div class="intro-door intro-door--left"></div>
-      <div class="intro-door intro-door--right"></div>
+ <div id="intro" class="intro" aria-hidden="false">
+  <div class="intro-doors">
+    <div class="intro-door intro-door--left">
+      <div class="door-handle"></div>
+      <span class="g"></span><span class="g"></span><span class="g"></span>
+      <span class="g"></span><span class="g"></span><span class="g"></span>
     </div>
-    <div class="intro-brand">
-      <p class="intro-brand-eyebrow">Presenting</p>
-      <h1 class="intro-brand-title">8 to 9 <span>Interiors</span></h1>
-      <p class="intro-brand-tagline">Interior Design Atelier</p>
+    <div class="intro-door intro-door--right">
+      <div class="door-handle"></div>
+      <span class="g"></span><span class="g"></span><span class="g"></span>
+      <span class="g"></span><span class="g"></span><span class="g"></span>
     </div>
   </div>
-
+  <div class="intro-video-wrap">
+  <video 
+    id="intro-video"
+    autoplay 
+    muted 
+    playsinline
+    preload="auto">
+    <source src="IntroVideo.mp4" type="video/mp4">
+  </video>
+</div>
+</div>
   <header class="site-header">
     <nav class="navbar" aria-label="Main navigation">
       <a href="#home" class="logo">
@@ -204,17 +216,17 @@
         </header>
         <div class="process-steps">
           <article class="process-step">
-            <div class="process-circle"><span>04</span></div>
+            <div class="process-circle"><span>01</span></div>
             <h3>Design Development</h3>
             <p>Detailed plans, material boards, and immersive 3D previews.</p>
           </article>
           <article class="process-step">
-            <div class="process-circle"><span>05</span></div>
+            <div class="process-circle"><span>02</span></div>
             <h3>Execution</h3>
             <p>Master craftsmen orchestrate the build with uncompromising standards.</p>
           </article>
           <article class="process-step">
-            <div class="process-circle"><span>06</span></div>
+            <div class="process-circle"><span>03</span></div>
             <h3>Final Handover</h3>
             <p>A turn-key experience, styled and ready to live in.</p>
           </article>
@@ -283,46 +295,47 @@
           <h2 class="section-title">Begin your <em>story</em></h2>
         </header>
 
-        <form class="contact-form" action="#" method="post" novalidate>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required autocomplete="name">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" autocomplete="tel">
-          </div>
-          <div class="form-group">
-            <label for="message">Tell us about your space</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">Send Enquiry <span aria-hidden="true">→</span></button>
-        </form>
+        <form class="contact-form" id="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your space</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Send Enquiry <span aria-hidden="true">→</span></button>
+        <p id="form-status" style="text-align:center; margin-top:1rem; color: var(--gold);"></p>
+         </form>
 
         <div class="contact-cards">
           <article class="contact-card">
             <span class="contact-card-icon" aria-hidden="true">💬</span>
             <div>
               <p class="contact-card-label">WhatsApp</p>
-              <a href="https://wa.me/+919528468728">+91 95284 68728</a>
+              <a href="https://wa.me/919999999999">+91 99999 99999</a>
             </div>
           </article>
           <article class="contact-card">
             <span class="contact-card-icon" aria-hidden="true">☎</span>
             <div>
               <p class="contact-card-label">Phone</p>
-              <a href="tel:+918527273678">+91 85272 73678</a>
+              <a href="tel:+919999999999">+91 99999 99999</a>
             </div>
           </article>
           <article class="contact-card">
             <span class="contact-card-icon" aria-hidden="true">✉</span>
             <div>
               <p class="contact-card-label">Email</p>
-              <a href="mailto:atelier@8to9interiors.com">Designs@8to9interiors.com</a>
+              <a href="mailto:atelier@8to9interiors.com">atelier@8to9interiors.com</a>
             </div>
           </article>
         </div>
