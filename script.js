@@ -6,42 +6,24 @@
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-/* ============================================================
-   INTRO DOOR ANIMATION
-   Sequence: doors open → brand text shows → overlay fades out
-   ============================================================ */
-function runIntroAnimation() {
-  const intro = document.getElementById("intro");
-  const body = document.body;
-
-  if (!intro) {
-    body.classList.remove("is-loading");
-    return;
-  }
-
-  setTimeout(function () {
-    intro.classList.add("doors-open");
-  }, 900);
-
-  setTimeout(function () {
-    intro.classList.add("show-brand");
-  }, 1600);
-
-  setTimeout(function () {
-    intro.classList.add("is-done");
-    body.classList.remove("is-loading");
-  }, 8500);
-
-  setTimeout(function () {
-    intro.remove();
-  }, 9500);
-}
 
 /* ============================================================
    MOBILE NAV TOGGLE
    Adds/removes .is-open on button + menu; CSS handles the rest
    ============================================================ */
+   function runVideoIntro() {
+  const videoIntro = document.getElementById("video-intro");
+  const video = document.getElementById("intro-video");
+  if (!videoIntro || !video) return;
+
+  video.addEventListener("ended", function () {
+    videoIntro.classList.add("is-done");
+    document.body.classList.remove("is-loading");
+    setTimeout(function () {
+      videoIntro.remove();
+    }, 900);
+  });
+}
 function initNavigation() {
   const navToggle = document.querySelector(".nav-toggle");
   const navMenu = document.querySelector(".nav-menu");
@@ -440,7 +422,7 @@ contactForm.addEventListener('submit', function(e) {
 /* ============================================================
    BOOT — run everything when DOM is ready
    ============================================================ */
-runIntroAnimation();
+runVideoIntro();
 initNavigation();
 initTestimonials();
 initContactForm();
