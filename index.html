@@ -13,30 +13,10 @@
 </head>
 <body class="is-loading">
 
-  <!-- INTRO: wooden door opens, brand appears, then site reveals -->
- <div id="intro" class="intro" aria-hidden="false">
-  <div class="intro-doors">
-    <div class="intro-door intro-door--left">
-      <div class="door-handle"></div>
-      <span class="g"></span><span class="g"></span><span class="g"></span>
-      <span class="g"></span><span class="g"></span><span class="g"></span>
-    </div>
-    <div class="intro-door intro-door--right">
-      <div class="door-handle"></div>
-      <span class="g"></span><span class="g"></span><span class="g"></span>
-      <span class="g"></span><span class="g"></span><span class="g"></span>
-    </div>
-  </div>
-  <div class="intro-video-wrap">
-  <video 
-    id="intro-video"
-    autoplay 
-    muted 
-    playsinline
-    preload="auto">
+ <div id="video-intro">
+  <video id="intro-video" autoplay muted playsinline preload="auto">
     <source src="IntroVideo.mp4" type="video/mp4">
   </video>
-</div>
 </div>
   <header class="site-header">
     <nav class="navbar" aria-label="Main navigation">
@@ -106,7 +86,7 @@
           <li class="feature-item">
             <span class="feature-icon" aria-hidden="true">◫</span>
             <div>
-              <h3>3D Visualization</h3>
+              <h3>Design Samples</h3>
               <p>Walk through your home before a single nail is driven. Interactive previews for every room.</p>
             </div>
           </li>
@@ -131,26 +111,25 @@
     <section id="catalogue" class="catalogue section">
       <div class="container">
         <header class="section-header section-header--center">
-          <p class="eyebrow">Interactive 3D Catalogue</p>
+          <p class="eyebrow">Sample Gallery</p>
           <h2 class="section-title">A showroom <em>in your screen</em></h2>
         </header>
       </div>
 
       <div class="catalogue-cards">
-        <article class="catalogue-card" style="--card-bg: url('images/living.jpg')">
+        <article class="catalogue-card" style="--card-bg: url('images/hall.jpg')">
           <span class="catalogue-number">01</span>
           <div class="catalogue-card-content">
             <h3>Living Hall</h3>
             <p>Grand spaces, refined comfort</p>
-            <button type="button" class="catalogue-btn" data-room="living">Explore 3D →</button>
-          </div>
+            <a href="living.html" target="_blank" class="catalogue-btn">Explore Designs →</a>          </div>
         </article>
         <article class="catalogue-card" style="--card-bg: url('images/bedroom.jpg')">
           <span class="catalogue-number">02</span>
           <div class="catalogue-card-content">
             <h3>Bedrooms</h3>
             <p>Sanctuaries of serenity</p>
-            <button type="button" class="catalogue-btn" data-room="bedroom">Explore 3D →</button>
+            <a href="bedroom.html" target="_blank" class="catalogue-btn">Explore Designs →</a>
           </div>
         </article>
         <article class="catalogue-card" style="--card-bg: url('images/kitchen.jpg')">
@@ -158,7 +137,7 @@
           <div class="catalogue-card-content">
             <h3>Kitchens</h3>
             <p>Where craft meets cuisine</p>
-            <button type="button" class="catalogue-btn" data-room="kitchen">Explore 3D →</button>
+            <a href="kitchen.html" target="_blank" class="catalogue-btn">Explore Designs →</a>
           </div>
         </article>
         <article class="catalogue-card" style="--card-bg: url('images/bathroom.jpg')">
@@ -166,13 +145,13 @@
           <div class="catalogue-card-content">
             <h3>Bathrooms</h3>
             <p>Spa-grade private retreats</p>
-            <button type="button" class="catalogue-btn" data-room="bathroom">Explore 3D →</button>
+           <a href="bathroom.html" target="_blank" class="catalogue-btn">Explore Designs →</a>
           </div>
         </article>
       </div>
     </section>
 
-    <section id="portfolio" class="portfolio section">
+    <!--<section id="portfolio" class="portfolio section">
       <div class="container">
         <header class="section-header section-header--center">
           <p class="eyebrow">Selected Works</p>
@@ -206,7 +185,7 @@
           </div>
         </article>
       </div>
-    </section>
+    </section>-->
 
     <section class="process section">
       <div class="container">
@@ -234,7 +213,7 @@
       </div>
     </section>
 
-    <section class="testimonials section">
+    <!--<section class="testimonials section">
       <div class="container">
         <header class="section-header section-header--center">
           <p class="eyebrow">Client Voices</p>
@@ -275,11 +254,11 @@
         <article><strong>11</strong><span>Years of Experience</span></article>
         <article><strong>1200+</strong><span>Design Concepts Delivered</span></article>
       </div>
-    </section>
+    </section>-->
 
     <section class="mid-cta section">
       <div class="container mid-cta-inner">
-        <h2 class="section-title">Transform <em>Your Space?</em></h2>
+        <h2 class="section-title">Transform <em>Your Space</em></h2>
         <p>A private consultation with our principal designer. No commitment — just inspiration.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Schedule Consultation <span aria-hidden="true">→</span></a>
@@ -321,21 +300,21 @@
             <span class="contact-card-icon" aria-hidden="true">💬</span>
             <div>
               <p class="contact-card-label">WhatsApp</p>
-              <a href="https://wa.me/919999999999">+91 99999 99999</a>
+              <a href="https://wa.me/918527273678">+91 85272 73678</a>
             </div>
           </article>
           <article class="contact-card">
             <span class="contact-card-icon" aria-hidden="true">☎</span>
             <div>
               <p class="contact-card-label">Phone</p>
-              <a href="tel:+919999999999">+91 99999 99999</a>
+              <a href="tel:+919528468728">+91 95284 68728</a>
             </div>
           </article>
           <article class="contact-card">
             <span class="contact-card-icon" aria-hidden="true">✉</span>
             <div>
               <p class="contact-card-label">Email</p>
-              <a href="mailto:atelier@8to9interiors.com">atelier@8to9interiors.com</a>
+              <a href="mailto:Designs@8to9interiors.com">Designs@8to9interiors.com</a>
             </div>
           </article>
         </div>
@@ -372,20 +351,6 @@
   </footer>
 
   <a href="https://wa.me/919999999999" class="whatsapp-fab" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
-
-  <!-- 3D viewer modal: Three.js renders interactive room scenes here -->
-  <div id="viewer-modal" class="viewer-modal" hidden aria-hidden="true">
-    <div class="viewer-modal-backdrop" data-close-viewer></div>
-    <div class="viewer-modal-panel" role="dialog" aria-modal="true" aria-labelledby="viewer-title">
-      <header class="viewer-modal-header">
-        <h2 id="viewer-title">3D Room Preview</h2>
-        <button type="button" class="viewer-close" data-close-viewer aria-label="Close 3D viewer">&times;</button>
-      </header>
-      <canvas id="viewer-canvas" aria-label="Interactive 3D room model"></canvas>
-      <p class="viewer-hint">Drag to rotate · Scroll to zoom</p>
-    </div>
-  </div>
-
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script type="importmap">
   {
