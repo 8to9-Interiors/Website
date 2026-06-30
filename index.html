@@ -9,6 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Antiga&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    document.documentElement.setAttribute('data-theme', saved || 'dark');
+  })();
+</script>
+<link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-loading">
@@ -38,6 +45,7 @@
         <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
         <li><a href="#contact" class="nav-link nav-link--cta">Contact</a></li>
       </ul>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     </nav>
   </header>
 
