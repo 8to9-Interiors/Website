@@ -15,10 +15,21 @@
 
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Montserrat", "Segoe UI", sans-serif;
-
   --header-h: 4.75rem;
   --max: 74rem;
   --ease: 0.35s ease;
+}
+
+[data-theme="light"] {
+  --black: #ffffff;
+  --black-soft: #f7f5f2;
+  --black-card: #efece6;
+  --gold: #b08d57;
+  --gold-light: #c5a059;
+  --gold-dark: #8a6c3f;
+  --white: #1a1a1a;
+  --gray: #5f5a55;
+  --gray-dark: #9a9590;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
