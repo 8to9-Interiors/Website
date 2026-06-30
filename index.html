@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="8 to 9 Interiors — Luxury interior design atelier transforming spaces into timeless statements.">
+  <title>8 to 9 Interiors | Luxury Interior Atelier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading">
+
+ <div id="video-intro">
+  <video id="intro-video" autoplay muted playsinline preload="auto">
+    <source src="IntroVideo.mp4" type="video/mp4">
+  </video>
+</div>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="#home" class="logo">
+        <span class="logo-mark">8 to 9</span>
+        <span class="logo-text">Interiors</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <ul class="nav-menu" id="primary-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#why" class="nav-link">Why Us</a></li>
+        <li><a href="#catalogue" class="nav-link">3D Catalogue</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#contact" class="nav-link nav-link--cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="home" class="hero">
+      <div class="hero-bg" role="img" aria-label="Luxury living room interior"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content container">
+        <p class="eyebrow">Luxury Interior Atelier · Est. 2014</p>
+        <h1 class="hero-title">Where Spaces Become <em>Statements</em></h1>
+        <p class="hero-subtitle">We transform ordinary rooms into timeless experiences through luxury interior design — a single atelier for vision, craft, and execution.</p>
+        <div class="hero-actions">
+          <a href="#catalogue" class="btn btn-primary">Explore Catalogue <span aria-hidden="true">→</span></a>
+          <a href="#contact" class="btn btn-outline">Book Consultation <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <a href="#why" class="scroll-hint" aria-label="Scroll to content">
+        <span>Scroll</span>
+        <span class="scroll-hint-icon" aria-hidden="true">⌄</span>
+      </a>
+    </section>
+
+    <section id="why" class="why section">
+      <div class="container">
+        <header class="section-header section-header--center">
+          <p class="eyebrow">Why 8 to 9</p>
+          <h2 class="section-title">Crafted by <em>Connoisseurs</em></h2>
+        </header>
+
+        <ul class="feature-list">
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">✦</span>
+            <div>
+              <h3>Custom Design Solutions</h3>
+              <p>Every space is conceived from a blank canvas — tailored to your lifestyle, taste, and architectural context.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">⌁</span>
+            <div>
+              <h3>Turnkey Execution</h3>
+              <p>A single point of accountability — from sketch to final styling, we manage every detail.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">◫</span>
+            <div>
+              <h3>Design Samples</h3>
+              <p>Walk through your home before a single nail is driven. Interactive previews for every room.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">◆</span>
+            <div>
+              <h3>Luxury Material Selection</h3>
+              <p>Hand-picked stones, fabrics, and finishes sourced globally for enduring elegance.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">◷</span>
+            <div>
+              <h3>Timely Delivery</h3>
+              <p>Disciplined project management with milestone transparency from day one.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="catalogue" class="catalogue section">
+      <div class="container">
+        <header class="section-header section-header--center">
+          <p class="eyebrow">Sample Gallery</p>
+          <h2 class="section-title">A showroom <em>in your screen</em></h2>
+        </header>
+      </div>
+
+      <div class="catalogue-cards">
+        <article class="catalogue-card" style="--card-bg: url('images/hall.jpg')">
+          <span class="catalogue-number">01</span>
+          <div class="catalogue-card-content">
+            <h3>Living Hall</h3>
+            <p>Grand spaces, refined comfort</p>
+            <a href="living.html" target="_blank" class="catalogue-btn">Explore Designs →</a>          </div>
+        </article>
+        <article class="catalogue-card" style="--card-bg: url('images/bedroom.jpg')">
+          <span class="catalogue-number">02</span>
+          <div class="catalogue-card-content">
+            <h3>Bedrooms</h3>
+            <p>Sanctuaries of serenity</p>
+            <a href="bedroom.html" target="_blank" class="catalogue-btn">Explore Designs →</a>
+          </div>
+        </article>
+        <article class="catalogue-card" style="--card-bg: url('images/kitchen.jpg')">
+          <span class="catalogue-number">03</span>
+          <div class="catalogue-card-content">
+            <h3>Kitchens</h3>
+            <p>Where craft meets cuisine</p>
+            <a href="kitchen.html" target="_blank" class="catalogue-btn">Explore Designs →</a>
+          </div>
+        </article>
+        <article class="catalogue-card" style="--card-bg: url('images/bathroom.jpg')">
+          <span class="catalogue-number">04</span>
+          <div class="catalogue-card-content">
+            <h3>Bathrooms</h3>
+            <p>Spa-grade private retreats</p>
+           <a href="bathroom.html" target="_blank" class="catalogue-btn">Explore Designs →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!--<section id="portfolio" class="portfolio section">
+      <div class="container">
+        <header class="section-header section-header--center">
+          <p class="eyebrow">Selected Works</p>
+          <h2 class="section-title">Signature <em>Residences</em></h2>
+        </header>
+      </div>
+
+      <div class="portfolio-grid">
+        <article class="portfolio-card" style="--card-bg: url('images/project1.jpg')">
+          <div class="portfolio-card-info">
+            <p class="portfolio-meta">Mumbai · 4800 sq.ft</p>
+            <h3>The Sterling Residence</h3>
+          </div>
+        </article>
+        <article class="portfolio-card" style="--card-bg: url('images/project2.jpg')">
+          <div class="portfolio-card-info">
+            <p class="portfolio-meta">Bengaluru · 3200 sq.ft</p>
+            <h3>Maison Verde</h3>
+          </div>
+        </article>
+        <article class="portfolio-card" style="--card-bg: url('images/project3.jpg')">
+          <div class="portfolio-card-info">
+            <p class="portfolio-meta">Hyderabad · 2800 sq.ft</p>
+            <h3>Atelier Marble</h3>
+          </div>
+        </article>
+        <article class="portfolio-card" style="--card-bg: url('images/project4.jpg')">
+          <div class="portfolio-card-info">
+            <p class="portfolio-meta">Delhi · 3600 sq.ft</p>
+            <h3>Ivory Spa Suite</h3>
+          </div>
+        </article>
+      </div>
+    </section>-->
+
+    <section class="process section">
+      <div class="container">
+        <header class="section-header section-header--center">
+          <p class="eyebrow">Our Process</p>
+          <h2 class="section-title">From vision to <em>handover</em></h2>
+        </header>
+        <div class="process-steps">
+          <article class="process-step">
+            <div class="process-circle"><span>01</span></div>
+            <h3>Design Development</h3>
+            <p>Detailed plans, material boards, and immersive 3D previews.</p>
+          </article>
+          <article class="process-step">
+            <div class="process-circle"><span>02</span></div>
+            <h3>Execution</h3>
+            <p>Master craftsmen orchestrate the build with uncompromising standards.</p>
+          </article>
+          <article class="process-step">
+            <div class="process-circle"><span>03</span></div>
+            <h3>Final Handover</h3>
+            <p>A turn-key experience, styled and ready to live in.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!--<section class="testimonials section">
+      <div class="container">
+        <header class="section-header section-header--center">
+          <p class="eyebrow">Client Voices</p>
+          <h2 class="section-title">Composed <em>lives</em></h2>
+        </header>
+
+        <div class="testimonial-slider">
+          <blockquote class="testimonial-slide is-active">
+            <p>"The attention to detail felt like couture for our home."</p>
+            <footer>
+              <cite>Dr. Karthik Iyer</cite>
+              <span>Villa · Bengaluru</span>
+            </footer>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"They transformed our apartment into a gallery we live inside every day."</p>
+            <footer>
+              <cite>Priya &amp; Arjun Mehta</cite>
+              <span>Penthouse · Mumbai</span>
+            </footer>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"From the first mood board to the final cushion, everything felt intentional."</p>
+            <footer>
+              <cite>Neha Kapoor</cite>
+              <span>Townhouse · Delhi</span>
+            </footer>
+          </blockquote>
+          <div class="testimonial-dots" aria-label="Testimonial navigation"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats section">
+      <div class="container stats-grid">
+        <article><strong>320+</strong><span>Projects Completed</span></article>
+        <article><strong>280+</strong><span>Happy Clients</span></article>
+        <article><strong>11</strong><span>Years of Experience</span></article>
+        <article><strong>1200+</strong><span>Design Concepts Delivered</span></article>
+      </div>
+    </section>-->
+
+    <section class="mid-cta section">
+      <div class="container mid-cta-inner">
+        <h2 class="section-title">Transform <em>Your Space</em></h2>
+        <p>A private consultation with our principal designer. No commitment — just inspiration.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Schedule Consultation <span aria-hidden="true">→</span></a>
+          <a href="#contact" class="btn btn-outline">Request Quote <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact section">
+      <div class="container">
+        <header class="section-header section-header--center">
+          <p class="eyebrow">Get In Touch</p>
+          <h2 class="section-title">Begin your <em>story</em></h2>
+        </header>
+
+        <form class="contact-form" id="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your space</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Send Enquiry <span aria-hidden="true">→</span></button>
+        <p id="form-status" style="text-align:center; margin-top:1rem; color: var(--gold);"></p>
+         </form>
+
+        <div class="contact-cards">
+          <article class="contact-card">
+            <span class="contact-card-icon" aria-hidden="true">💬</span>
+            <div>
+              <p class="contact-card-label">WhatsApp</p>
+              <a href="https://wa.me/919999999999">+91 99999 99999</a>
+            </div>
+          </article>
+          <article class="contact-card">
+            <span class="contact-card-icon" aria-hidden="true">☎</span>
+            <div>
+              <p class="contact-card-label">Phone</p>
+              <a href="tel:+919999999999">+91 99999 99999</a>
+            </div>
+          </article>
+          <article class="contact-card">
+            <span class="contact-card-icon" aria-hidden="true">✉</span>
+            <div>
+              <p class="contact-card-label">Email</p>
+              <a href="mailto:atelier@8to9interiors.com">atelier@8to9interiors.com</a>
+            </div>
+          </article>
+        </div>
+
+        <article class="atelier-card">
+          <span class="contact-card-icon" aria-hidden="true">⌖</span>
+          <div>
+            <p class="contact-card-label">Atelier</p>
+            <p>12, Heritage Lane, Bandra West, Mumbai 400050</p>
+          </div>
+        </article>
+
+        <div id="map" class="map" aria-label="Studio location map"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#home" class="logo logo--footer">
+        <span class="logo-mark">8 to 9</span>
+        <span class="logo-text">Interiors</span>
+      </a>
+      <p class="footer-copy">&copy; 2026 8 to 9 Interiors — All rights reserved</p>
+      <p class="footer-tagline">Crafted with intention · Designed for living</p>
+      <ul class="footer-social" aria-label="Social media links">
+        <li><a href="#" aria-label="Instagram">Instagram</a></li>
+        <li><a href="#" aria-label="Pinterest">Pinterest</a></li>
+        <li><a href="#" aria-label="Facebook">Facebook</a></li>
+        <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919999999999" class="whatsapp-fab" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
+
+ 
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
