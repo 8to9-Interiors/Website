@@ -271,29 +271,37 @@ button, input, textarea { font: inherit; color: inherit; background: none; borde
   transform: scale(0.9);
 }
 
-
 #why.why.section {
   position: relative;
-  background-image: url('Logo.jpeg');
+  background-image: url('Logo2.jpeg');
   background-size: 80%;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: var(--black);
 }
-/* ================================================================
-  CSS for Dark Overlay on Why Section
-  ===============================================================*/
+
+[data-theme="light"] #why.why.section {
+  background-image: url('Logo.jpeg');
+}
+
 #why.why.section::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* adjust darkness as needed */
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
+}
+
+[data-theme="light"] #why.why.section::before {
+  background: rgba(255, 255, 255, 0.82);
 }
 
 #why .container {
   position: relative;
   z-index: 2;
 }
+
+
 .btn {
   display: inline-flex;
   align-items: center;
