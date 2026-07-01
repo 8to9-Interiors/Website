@@ -11,17 +11,29 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
    MOBILE NAV TOGGLE
    Adds/removes .is-open on button + menu; CSS handles the rest
    ============================================================ */
-   function runVideoIntro() {
+  function runVideoIntro() {
   const videoIntro = document.getElementById("video-intro");
   const video = document.getElementById("intro-video");
   if (!videoIntro || !video) return;
 
-  video.addEventListener("ended", function () {
+  function finishIntro() {
     videoIntro.classList.add("is-done");
     document.body.classList.remove("is-loading");
     setTimeout(function () {
       videoIntro.remove();
     }, 900);
+  }
+
+  // If intro already played once in this tab/session, skip it immediately
+  if (sessionStorage.getItem("introPlayed")) {
+    video.pause();
+    finishIntro();
+    return;
+  }
+
+  video.addEventListener("ended", function () {
+    sessionStorage.setItem("introPlayed", "true");
+    finishIntro();
   });
 }
 function initNavigation() {
