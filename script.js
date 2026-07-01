@@ -24,7 +24,15 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
     }, 900);
   }
 
-  // If intro already played once in this tab/session, skip it immediately
+  const navEntries = performance.getEntriesByType("navigation");
+  const navType = navEntries.length ? navEntries[0].type : "navigate";
+
+  // Only a genuine reload clears the "already played" flag
+  if (navType === "reload") {
+    sessionStorage.removeItem("introPlayed");
+  }
+
+  // If intro already played this session (and it wasn't a reload), skip it
   if (sessionStorage.getItem("introPlayed")) {
     video.pause();
     finishIntro();
