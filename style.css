@@ -159,7 +159,7 @@ button, input, textarea { font: inherit; color: inherit; background: none; borde
   inset: 0 0 auto;
   height: var(--header-h);
   z-index: 1000;
-  background: rgba(5, 5, 5, 0.88);
+  background: color-mix(in srgb, var(--black) 88%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(197, 160, 89, 0.12);
 }
@@ -187,7 +187,7 @@ button, input, textarea { font: inherit; color: inherit; background: none; borde
 
 .logo-text {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
   font-size: 1rem;
   color: var(--white);
 }
@@ -242,6 +242,58 @@ button, input, textarea { font: inherit; color: inherit; background: none; borde
 .nav-toggle.is-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
 .nav-toggle.is-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/*===============================================================
+  CSS for Dark and Light theme button
+  ===============================================================*/
+/* THEME TOGGLE BUTTON */
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gold);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background var(--ease), transform var(--ease), border-color var(--ease);
+}
+
+#theme-toggle:hover {
+  background: rgba(197, 160, 89, 0.1);
+  border-color: var(--gold);
+  transform: rotate(15deg);
+}
+
+#theme-toggle:active {
+  transform: scale(0.9);
+}
+
+
+#why.why.section {
+  position: relative;
+  background-image: url('Logo.jpeg');
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* ================================================================
+  CSS for Dark Overlay on Why Section
+  ===============================================================*/
+#why.why.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* adjust darkness as needed */
+  z-index: 1;
+}
+
+#why .container {
+  position: relative;
+  z-index: 2;
+}
 .btn {
   display: inline-flex;
   align-items: center;
