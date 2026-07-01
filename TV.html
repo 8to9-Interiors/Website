@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Living Hall Designs — 8 to 9 Interiors</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c8a951;
+      --gold-light: #f0d060;
+      --dark: #0d0d0d;
+      --white: #f5f0e8;
+    }
+
+    body {
+      background: #000;
+      color: var(--white);
+      font-family: 'Georgia', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── VIDEO HERO ── */
+    #hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+    /* Dark overlay */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2) 0%,
+        rgba(0,0,0,0.1) 60%,
+        rgba(0,0,0,0.7) 100%
+      );
+      pointer-events: none;
+    }
+/* ── BACK BUTTON ── */
+    #back-btn {
+      position: absolute;
+      top: 24px;
+      left: 28px;
+      z-index: 10;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,169,81,0.5);
+      color: var(--gold);
+      font-family: 'Georgia', serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      padding: 10px 22px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    #back-btn:hover { background: rgba(200,169,81,0.15); }
+    /* ── HOVER LIFT ── */
+.design-card {
+  cursor: pointer;
+  transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+}
+
+.design-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(200,169,81,0.15);
+}
+
+/* ── LIGHTBOX ── */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  cursor: pointer;
+}
+
+#lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#lightbox img {
+  max-width: 85vw;
+  max-height: 85vh;
+  object-fit: contain;
+  cursor: default;
+  transform: scale(0.92);
+  transition: transform 0.4s ease;
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  border: 1px solid rgba(200,169,81,0.2);
+}
+
+#lightbox.active img {
+  transform: scale(1);
+}
+
+#lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  color: var(--gold);
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+#lightbox-close:hover { opacity: 1; }
+    /* ── ROOM TITLE ── */
+    #room-title {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-size: 1rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(200,169,81,0.4);
+    }
+
+    /* ── SCROLL CUE ── */
+    #scroll-cue {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      animation: fadeUpDown 2s ease-in-out infinite;
+    }
+
+    #scroll-cue svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    @keyframes fadeUpDown {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 1;   transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── DESIGNS SECTION ── */
+    #designs {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #designs h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    #designs p.subtitle {
+      color: rgba(245,240,232,0.5);
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      margin-bottom: 60px;
+    }
+
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .design-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #1a1a1a;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .design-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .design-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .design-card:hover img { transform: scale(1.05); }
+
+    .design-card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: rgba(245,240,232,0.3);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="Design preview">
+</div>
+<body>
+
+  <!-- VIDEO HERO -->
+  <section id="hero">
+    <video id="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="TvIntro.mp4" type="video/mp4">
+    </video>
+
+    <a href="index.html" id="back-btn">← Back</a>
+    <span id="room-title">TV Unit</span>
+<div id="scroll-cue">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- DESIGNS GALLERY -->
+  <section id="designs">
+    <h2>Our Designs</h2>
+    <p class="subtitle">TV Unit — curated spaces by 8 to 9 Interiors</p>
+
+    <div class="designs-grid">
+      
+      <div class="design-card">
+        <img src="images/TV1.jpg" alt="TV Unit Design 1">
+        <div class="design-card-label">Design 01</div>
+      </div>
+      <div class="design-card">
+        <img src="images/TV2.jpg" alt="TV Unit Design 2">
+        <div class="design-card-label">Design 02</div>
+      </div>
+      <div class="design-card">
+        <img src="images/TV3.jpg" alt="TV Unit Design 3">
+        <div class="design-card-label">Design 03</div>
+      </div>
+      <div class="design-card">
+        <img src="images/TV4.jpg" alt="TV Unit Design 4">
+        <div class="design-card-label">Design 04</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>8 to 9 Interiors &nbsp;·&nbsp; Interior Design Atelier</footer>
+
+  <script>
+    // Scroll reveal for design cards
+    const cards = document.querySelectorAll('.design-card');
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (entry.isIntersecting) {
+          setTimeout(function () {
+            entry.target.classList.add('visible');
+          }, i * 150);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    // Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.getElementById('lightbox-close');
+
+// Open on card click
+cards.forEach(function(card) {
+  card.addEventListener('click', function() {
+    const img = card.querySelector('img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('active');
+  });
+});
+
+// Close on background click
+lightbox.addEventListener('click', function(e) {
+  if (e.target === lightbox || e.target === lightboxClose) {
+    lightbox.classList.remove('active');
+  }
+});
+
+// Close on image itself — stop propagation so clicking image doesn't close
+lightboxImg.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+});
+
+    cards.forEach(function (card) { observer.observe(card); });
+  </script>
+</body>
+</html>
